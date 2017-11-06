@@ -22,8 +22,9 @@ RSpec.describe "Card Requests", :type => :request do
   end
   # GET /cards/:id (show)
   describe "GET /cards/:id" do
+    let(:card_id) { cards.first.id }
     # Before you run example block get the card
-    before { get '/cards/#{card_id}' }
+    before { get '/cards/' + card_id.to_s }
 
     it 'returns a card' do
       expect(json).not_to be_empty
@@ -42,7 +43,7 @@ RSpec.describe "Card Requests", :type => :request do
     let(:card_params) {{ title: 'Birthday card', description: 'Happy Birthday',
                          price: 5.99 }}
 
-    before { post '/cards', card_params: card_params }
+    before { post '/cards', params: card_params }
 
     it "creates a card" do
       expect(response).to have_http_status(201)
@@ -53,9 +54,25 @@ RSpec.describe "Card Requests", :type => :request do
     end
   end
   # PATCH/PUT /cards/:id(update)
-  describe "PUT /cards/:card_id" do
-    
+  describe "PUT /cards/:id" do
+    let(:card_params) {{ title: 'Wedding card', description: 'Congrats!' }}
+    before { put '/cards/' + card_id.to_s, params: card_params }
+
+    it 'updates card' do
+      expect(response.body).not_to be_empty
+    end
+
+    it "returns status 200" do
+      expect(response).to have_http_status(200)
+    end
   end
   # DELETE /products/1(destroy)
+  describe "DELETE /cards/:id" do
+    before { delete '/cards/' + card_id.to_s }
+
+    it "returns status 204" do
+      expect(response).to have_http_status(204)
+    end
+  end
 
 end
