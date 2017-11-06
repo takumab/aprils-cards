@@ -38,7 +38,24 @@ RSpec.describe "Card Requests", :type => :request do
   # GET /cards/:id/edit(edit)
   # GET /cards/new (new)
   # POST /cards (create)
+  describe "POST /cards" do
+    let(:card_params) {{ title: 'Birthday card', description: 'Happy Birthday',
+                         price: 5.99 }}
+
+    before { post '/cards', card_params: card_params }
+
+    it "creates a card" do
+      expect(response).to have_http_status(201)
+    end
+
+    it "does not create card due to invalid attributes" do
+      expect(response).to have_http_status(422)
+    end
+  end
   # PATCH/PUT /cards/:id(update)
+  describe "PUT /cards/:card_id" do
+    
+  end
   # DELETE /products/1(destroy)
 
 end
