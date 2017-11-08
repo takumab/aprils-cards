@@ -1,4 +1,4 @@
-class Api::V1::CardsController < Api::V1::ApiController
+class Api::V1::CardsController < ApplicationController
 
   def index
     cards = Card.all
@@ -17,6 +17,18 @@ class Api::V1::CardsController < Api::V1::ApiController
     else
       head 500
     end
+  end
+
+  def update
+    card = Card.find(params[:id])
+    if card.update(card_params)
+      render as_json(card), status: :ok
+    else
+      render json: card.errors, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
   end
 
   private
