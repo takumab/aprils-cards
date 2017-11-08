@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  # Associations
+  it { should have_many(:cards) }
+
+  # Validations
+  it { should validate_presence_of(:email) }
 end
