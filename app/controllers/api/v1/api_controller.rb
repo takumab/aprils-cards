@@ -1,3 +1,9 @@
-class ApiController < ApplicationController
-  skip_before_action :verify_authenticity_token
+module Api
+  module V1
+    class ApiController < ApplicationController
+
+
+      
+    end
+  end
 end
