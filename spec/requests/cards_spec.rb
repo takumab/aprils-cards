@@ -37,8 +37,15 @@ RSpec.describe "Cards API", :type => :request do
 
   # POST /cards (create)
   describe "POST /cards" do
-    let(:card_params) {{ title: 'Birthday card', description: 'Happy Birthday',
-                         price: 5.99 }}
+    let(:card_params) do
+      {
+        card: {
+          title: 'Birthday card',
+          description: 'Happy Birthday',
+          price: 5.99 }
+      }
+    end
+
 
     before { post '/api/v1/cards', params: card_params }
 
@@ -52,7 +59,15 @@ RSpec.describe "Cards API", :type => :request do
   end
   # PATCH/PUT /cards/:id(update)
   describe "PUT /cards/:id" do
-    let(:card_params) {{ title: 'Wedding card', description: 'Congrats!' }}
+    let(:card_params) do
+      {
+        card: {
+          title: 'Wedding card',
+          description: 'Congrats!',
+          price: 4.99
+          }
+      }
+    end
     before { put "/api/v1/cards/#{card_id}", params: card_params }
 
     it 'updates card' do
